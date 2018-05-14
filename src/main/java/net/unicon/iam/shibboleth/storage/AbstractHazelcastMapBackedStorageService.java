@@ -68,6 +68,9 @@ public abstract class AbstractHazelcastMapBackedStorageService extends AbstractS
      */
     @Override
     public boolean create(@Nonnull @NotEmpty String context, @Nonnull @NotEmpty String key, @Nonnull String value, @Nullable @Positive Long expiration) throws IOException {
+    	
+    	logger.debug("New entry, context: "+context+", key: "+key+", value"+value);
+    	
         IMap<Object, StorageRecord> backingMap = getMap(context, key);
         Object ikey = getKey(context, key);
         if (backingMap.containsKey(ikey)) {
