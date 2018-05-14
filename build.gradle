@@ -22,6 +22,7 @@ dependencies {
     testCompile "org.opensaml:opensaml-storage-api:${project.'opensaml.version'}:tests@jar"
     testCompile "junit:junit:4.12"
     testCompile "org.testng:testng:6.9.9"
+    testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }
 
 distributions {
