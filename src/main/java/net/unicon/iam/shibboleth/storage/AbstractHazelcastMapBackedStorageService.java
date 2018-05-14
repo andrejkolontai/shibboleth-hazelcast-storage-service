@@ -77,8 +77,12 @@ public abstract class AbstractHazelcastMapBackedStorageService extends AbstractS
         logger.debug(
         	"Storing key "+
         	ikey.toString()+
-        	"into partition #"+
-        	this.hazelcastInstance.getPartitionService().getPartition(ikey)
+        	" into partition #"+
+        	this.hazelcastInstance.getPartitionService().getPartition(ikey)+
+        	" data "+
+        	value.toString()+
+        	" expiration " +
+        	expiration
         );
        
         StorageRecord storageRecord = new MutableStorageRecord(value, expiration);
