@@ -91,6 +91,9 @@ public abstract class AbstractHazelcastMapBackedStorageService extends AbstractS
         } else {
             backingMap.put(ikey, storageRecord);
         }
+        
+        logger.debug("Map size: "+backingMap.size());
+        
         return true;
     }
 
