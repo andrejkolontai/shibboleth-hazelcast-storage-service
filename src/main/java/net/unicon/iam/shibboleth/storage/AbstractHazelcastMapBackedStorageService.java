@@ -30,6 +30,10 @@ public abstract class AbstractHazelcastMapBackedStorageService extends AbstractS
         this.hazelcastInstance = hazelcastInstance;
 
         setupSerialization();
+        
+        logger.debug("Hazelcast Storage Service starting");
+        this.hazelcastInstance.getPartitionService().getPartitions().
+        	forEach(p -> logger.debug("Partition: " + p.getPartitionId()));
 
         this.setContextSize(Integer.MAX_VALUE);
         this.setKeySize(Integer.MAX_VALUE);
@@ -69,6 +73,14 @@ public abstract class AbstractHazelcastMapBackedStorageService extends AbstractS
         if (backingMap.containsKey(ikey)) {
             return false;
         }
+        
+        logger.debug(
+        	"Storing key "+
+        	ikey.toString()+
+        	"into partition #"+
+        	this.hazelcastInstance.getPartitionService().getPartition(ikey)
+        );
+       
         StorageRecord storageRecord = new MutableStorageRecord(value, expiration);
         if (expiration != null) {
             backingMap.put(ikey, storageRecord, getSystemExpiration(expiration), TimeUnit.MILLISECONDS);
